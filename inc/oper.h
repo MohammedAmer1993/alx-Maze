@@ -8,5 +8,8 @@
 int maze_init();
 int maze_load();
 int maze_close();
+int create2Dmap();
+int drawMainSprite(double angle);
+
 
 #endif /* OPER_H_ */

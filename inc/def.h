@@ -10,7 +10,8 @@
 extern SDL_Window* main_window;
 extern SDL_Renderer* main_render;
 extern SDL_Surface* surface1;
-extern SDL_Texture* texture1;
+extern SDL_Texture* wall;
+extern SDL_Texture* spr;
 extern int mapArr[MAP_HEIGHT][MAP_WIDTH];
 extern SDL_Rect sprite;
 

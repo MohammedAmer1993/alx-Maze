@@ -5,10 +5,8 @@
 #include <SDL2/SDL.h>
 #include "def.h"
 
-int createSurface(char* str);
-int createTextureFromSurface(SDL_Surface* surface);
-void create2Dmap();
-void drawMainSprite();
+SDL_Surface* loadSurface(char* str);
+SDL_Texture* createTextureFromSurface(SDL_Surface* surface);
 
 
 #endif /* UTIL_H_ */

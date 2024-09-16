@@ -43,8 +43,106 @@ int maze_init()
 }
 int maze_load()
 {
-	return (0);
+	int status = 0;
+	SDL_Surface* surface = NULL;
+	SDL_Texture* texture = NULL;
+	SDL_Surface* surface2 = NULL;
+	SDL_Texture* texture2 = NULL;
+
+	surface = loadSurface("assets/wall.bmp");
+
+	if (surface == NULL)
+	{
+		status = 1;
+	}
+	else
+	{
+		texture = createTextureFromSurface(surface);
+		if (texture == NULL)
+		{
+			status = 1;
+		}
+		else
+		{
+			wall = texture;
+		}
+	}
+
+	surface2= loadSurface("assets/sprite.bmp");
+	if (surface2 == NULL)
+	{
+		status = 1;
+	}
+	else
+	{
+		texture2 = createTextureFromSurface(surface2);
+		if (texture2 == NULL)
+		{
+			status = 1;
+		}
+		else
+		{
+			spr = texture2;
+		}
+	}
+	return (status);
 }
+
+
+/* Documentation for this functiion */
+int create2Dmap()
+{
+	int status = 0;
+	SDL_Texture* texture;
+	SDL_Rect fillRect = {0, 0, CELL_SIZE, CELL_SIZE};
+	texture = SDL_CreateTexture(main_render, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, SCREEN_WIDTH, SCREEN_HEIGHT);
+	SDL_SetRenderTarget(main_render, texture);
+	SDL_SetRenderDrawColor(main_render, 0, 0, 0, 255);
+	SDL_RenderClear(main_render);
+	SDL_SetTextureBlendMode(wall, SDL_BLENDMODE_BLEND);
+	SDL_SetTextureAlphaMod(wall, 255);
+	for (int i = 0; i < MAP_HEIGHT; ++i)
+	{
+		for (int j = 0; j < MAP_WIDTH; ++j)
+		{
+			fillRect.x = j * CELL_SIZE;
+			fillRect.y = i * CELL_SIZE;
+			if (mapArr[i][j] == 1)
+			{
+				if(SDL_RenderCopyEx(main_render, wall, NULL, &fillRect, 0.0, NULL, SDL_FLIP_NONE) < 0)
+				{
+					printf("couldn't render the texture\nError: %s\n",SDL_GetError());
+					status = 1;
+				}
+			}
+		}
+	}
+	SDL_SetRenderTarget(main_render, NULL);
+	wall = texture;
+	return (status);
+}
+
+
+int drawMainSprite(double angle)
+{
+	int w = 0;
+	int h = 0;
+	int status = 0;
+
+	SDL_QueryTexture(spr, NULL, NULL, &w, &h);
+	sprite.w = w;
+	sprite.h = h;
+	if (SDL_RenderCopyEx(main_render, spr, NULL, &sprite, angle, NULL, SDL_FLIP_NONE) < 0)
+	{
+		printf("couldn't render the texture\nError: %s\n",SDL_GetError());
+		status = 1;
+	}
+	return (status);
+}
+
+
+
+
 int maze_close()
 {
 	return (0);
