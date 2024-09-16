@@ -99,7 +99,6 @@ int main()
 					case SDLK_d:
 						sprite.x += 5;
 						break;
-					
 					default:
 						break;
 					}
