@@ -1,6 +1,7 @@
 #ifndef DEF_H_
 #define DEF_H_
 
+#define  PI                 3.14159265358979323846
 #define  SCREEN_WIDTH      640
 #define  SCREEN_HEIGHT     480
 #define  MAP_WIDTH         100

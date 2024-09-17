@@ -35,6 +35,7 @@ int main()
 	SDL_Event e;
 	int quit = 1;
 	double angle = 0;
+	double degree_angle = 0;
 	status = maze_init();
 	if(status > 0)
 	{
@@ -74,21 +75,15 @@ int main()
 						sprite.y += 5;
 						break;
 					case SDLK_LEFT:
-						if (angle <= -360)
-						{
-							angle += 360;
-						}
-						angle -= 1;
+						angle -= 0.1;
+						angle = angleIn360Range(angle);
 						break;
 					case SDLK_RIGHT:
-						if (angle >= 360)
-						{
-							angle -= 360;
-						}
-						angle += 1;
+						angle += 0.1;
+						angle = angleIn360Range(angle);
 						break;
 					case SDLK_w:
-						sprite.y -= 5;
+						moveForward(&angle, 5);
 						break;
 					case SDLK_s:
 						sprite.y += 5;
@@ -104,7 +99,8 @@ int main()
 					}
 				}
 				SDL_RenderCopyEx(main_render, wall, NULL, NULL, 0, NULL, SDL_FLIP_NONE);
-				status = drawMainSprite(angle);
+				degree_angle = (180 / PI) * angle;
+				status = drawMainSprite(degree_angle);
 				if (status > 0)
 				{
 					printf("couldn't pring sprint");

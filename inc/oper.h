@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
+#include <math.h>
 #include "util.h"
 
 int maze_init();

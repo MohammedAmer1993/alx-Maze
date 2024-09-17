@@ -6,5 +6,6 @@
 #include "def.h"
 #include "util.h"
 #include "oper.h"
+#include "moves.h"
 
 #endif /* MAZE_H_ */
