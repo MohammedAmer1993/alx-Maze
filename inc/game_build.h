@@ -6,10 +6,10 @@
 #include <math.h>
 #include "util.h"
 
-int maze_init();
-int maze_load();
-int maze_close();
-int create2Dmap();
+int maze_init(void);
+int maze_load(void);
+int maze_close(void);
+int create2Dmap(void);
 int drawMainSprite(double angle);
 
 

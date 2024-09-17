@@ -1,6 +1,6 @@
 #include "positions.h"
 
-pos calculatePosInArr()
+pos calculatePosInArr(void)
 {
 	pos current = {-1, -1};
 	int x = sprite.x;
@@ -27,8 +27,8 @@ collision calculateCollison(pos current)
 collision calculateXCollison(pos current, double x)
 {
 	int xCor = 0;
-	int zz = round(x);
-	xCor = floor((sprite.x + zz) / CELL_SIZE);
+
+	xCor = floor((sprite.x + round(x)) / CELL_SIZE);
 	if (mapArr[current.y][xCor] == 1)
 	{
 		return (COLLISION_X_DIR);
@@ -41,6 +41,7 @@ collision calculateXCollison(pos current, double x)
 collision calculateYCollison(pos current, int y)
 {
 	int yCor = 0;
+
 	yCor = floor((sprite.y + round(y)) / CELL_SIZE);
 	if (mapArr[yCor][current.x] == 1)
 	{
@@ -49,5 +50,17 @@ collision calculateYCollison(pos current, int y)
 	else
 	{
 		return (COLLISION_NONE);
+	}
+}
+
+void setAddedValueAfterColl(double *xValue, double *yValue, pos current)
+{
+	if (calculateXCollison(current, *xValue) == COLLISION_X_DIR)
+	{
+		*xValue = 0;
+	}
+	if (calculateYCollison(current, *yValue) == COLLISION_Y_DIR)
+	{
+		*yValue = 0;
 	}
 }

@@ -1,36 +1,37 @@
 #include "game_build.h"
 
-int maze_init()
+int maze_init(void)
 {
 	int success = 0;
 
-	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
+		printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
 		success = 1;
 	}
 	else
 	{
-		//Set texture filtering to linear
-		if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
+		/* Set texture filtering to linear */
+		if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
 		{
-			printf( "Warning: Linear texture filtering not enabled!" );
+			printf("Warning: Linear texture filtering not enabled!");
 		}
 
-		//Create window
-		main_window = SDL_CreateWindow( "Maze", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
-		if( main_window == NULL )
+		/* Create window */
+		main_window = SDL_CreateWindow("Maze", SDL_WINDOWPOS_UNDEFINED,
+						 SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		if (main_window == NULL)
 		{
-			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
+			printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
 			success = 2;
 		}
 		else
 		{
-			//Create renderer for window
-			main_render = SDL_CreateRenderer( main_window, -1, SDL_RENDERER_ACCELERATED );
-			if( main_render == NULL )
+			/* Create renderer for window */
+			main_render = SDL_CreateRenderer(main_window, -1, SDL_RENDERER_ACCELERATED);
+			if (main_render == NULL)
 			{
-				printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
+				printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
 				success = 3;
 			}
 			else
@@ -41,20 +42,17 @@ int maze_init()
 	}
 	return (success);
 }
-int maze_load()
+int maze_load(void)
 {
 	int status = 0;
-	SDL_Surface* surface = NULL;
-	SDL_Texture* texture = NULL;
-	SDL_Surface* surface2 = NULL;
-	SDL_Texture* texture2 = NULL;
+	SDL_Surface *surface = NULL;
+	SDL_Texture *texture = NULL;
+	SDL_Surface *surface2 = NULL;
+	SDL_Texture *texture2 = NULL;
 
 	surface = loadSurface("assets/wall.bmp");
-
 	if (surface == NULL)
-	{
 		status = 1;
-	}
 	else
 	{
 		texture = createTextureFromSurface(surface);
@@ -68,7 +66,7 @@ int maze_load()
 		}
 	}
 
-	surface2= loadSurface("assets/sprite2.bmp");
+	surface2 = loadSurface("assets/sprite2.bmp");
 	if (surface2 == NULL)
 	{
 		status = 1;
@@ -90,12 +88,14 @@ int maze_load()
 
 
 /* Documentation for this functiion */
-int create2Dmap()
+int create2Dmap(void)
 {
 	int status = 0;
-	SDL_Texture* texture;
+	SDL_Texture *texture;
 	SDL_Rect fillRect = {0, 0, CELL_SIZE, CELL_SIZE};
-	texture = SDL_CreateTexture(main_render, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	texture = SDL_CreateTexture(main_render, SDL_PIXELFORMAT_RGBA8888,
+				    SDL_TEXTUREACCESS_TARGET, SCREEN_WIDTH, SCREEN_HEIGHT);
 	SDL_SetRenderTarget(main_render, texture);
 	SDL_SetRenderDrawColor(main_render, 0, 0, 0, 255);
 	SDL_RenderClear(main_render);
@@ -109,9 +109,10 @@ int create2Dmap()
 			fillRect.y = i * CELL_SIZE;
 			if (mapArr[i][j] == 1)
 			{
-				if(SDL_RenderCopyEx(main_render, wall, NULL, &fillRect, 0.0, NULL, SDL_FLIP_NONE) < 0)
+				if (SDL_RenderCopyEx(main_render, wall, NULL, &fillRect,
+					 0.0, NULL, SDL_FLIP_NONE) < 0)
 				{
-					printf("couldn't render the texture\nError: %s\n",SDL_GetError());
+					printf("couldn't render the texture\nError: %s\n", SDL_GetError());
 					status = 1;
 				}
 			}
@@ -132,9 +133,10 @@ int drawMainSprite(double angle)
 	SDL_QueryTexture(spr, NULL, NULL, &w, &h);
 	sprite.w = w;
 	sprite.h = h;
-	if (SDL_RenderCopyEx(main_render, spr, NULL, &sprite, angle, NULL, SDL_FLIP_NONE) < 0)
+	if (SDL_RenderCopyEx(main_render, spr, NULL, &sprite,
+				 angle, NULL, SDL_FLIP_NONE) < 0)
 	{
-		printf("couldn't render the texture\nError: %s\n",SDL_GetError());
+		printf("couldn't render the texture\nError: %s\n", SDL_GetError());
 		status = 1;
 	}
 	return (status);
@@ -143,7 +145,7 @@ int drawMainSprite(double angle)
 
 
 
-int maze_close()
+int maze_close(void)
 {
 	return (0);
 }
