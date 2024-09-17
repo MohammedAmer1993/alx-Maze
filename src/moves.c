@@ -20,7 +20,7 @@ void moveForward(double* angle, int mov)
 	if (*angle >= 0 && *angle < (PI / 2))
 	{
 		sprite.x += (mov * cos((*angle)));
-		sprite.y += (mov * sin((*angle)));	
+		sprite.y += (mov * sin((*angle)));  //int dosn't have dicimal BUG
 	}
 	else if ((*angle) >= (PI / 2) && (*angle) < PI)
 	{
@@ -32,7 +32,7 @@ void moveForward(double* angle, int mov)
 		sprite.x -= (mov * sin(((3 * PI) / 2) - (*angle)));
 		sprite.y -= (mov * cos(((3 * PI) / 2) - (*angle)));	
 	}
-	else if ((*angle) >= 0 && (*angle) < (2 * PI))
+	else if (((*angle) >= ((3 * PI) / 2)) && (*angle) < (2 * PI))
 	{
 		sprite.x += (mov * cos(2 * PI - (*angle)));
 		sprite.y -= (mov * sin(2 * PI - (*angle)));	
@@ -56,12 +56,57 @@ void moveBackward(double* angle, int mov)
 		sprite.x += (mov * sin(((3 * PI) / 2) - (*angle)));
 		sprite.y += (mov * cos(((3 * PI) / 2) - (*angle)));	
 	}
-	else if ((*angle) >= 0 && (*angle) < (2 * PI))
+	else if (((*angle) >= ((3 * PI) / 2)) && (*angle) < (2 * PI))
 	{
 		sprite.x -= (mov * cos(2 * PI - (*angle)));
 		sprite.y += (mov * sin(2 * PI - (*angle)));	
 	}
 }
 
-// void moveLeft(double angel){}
-// void moveRight(double angle){}
+void moveLeft(double* angle, int mov)
+{
+	if (*angle >= 0 && *angle < (PI / 2))
+	{
+		sprite.x += (mov * cos(2 * PI - (*angle)));
+		sprite.y += (mov * sin(2 * PI - (*angle)));
+	}
+	else if ((*angle) >= (PI / 2) && (*angle) < PI)
+	{
+		sprite.x -= (mov * cos((*angle)));
+		sprite.y += (mov * sin((*angle)));
+	}
+	else if ((*angle) >= PI && (*angle) < ((3 * PI) / 2))
+	{
+		sprite.x += (mov * cos(2 * PI - (*angle)));
+		sprite.y += (mov * sin(2 * PI - (*angle)));	
+	}
+	else if (((*angle) >= ((3 * PI) / 2)) && (*angle) < (2 * PI))
+	{
+		sprite.x += (mov * sin(((3 * PI) / 2) - (*angle)));
+		sprite.y -= (mov * cos(((3 * PI) / 2) - (*angle)));	
+	}
+}
+
+void moveRight(double* angle, int mov)
+{
+	if (*angle >= 0 && *angle < (PI / 2))
+	{
+		sprite.x += (mov * cos(PI - (*angle)));    
+		sprite.y += (mov * sin(PI - (*angle)));
+	}
+	else if ((*angle) >= (PI / 2) && (*angle) < PI)
+	{
+		sprite.x -= (mov * sin(((3 * PI) / 2) - (*angle)));
+		sprite.y += (mov * cos(((3 * PI) / 2) - (*angle)));
+	}
+	else if ((*angle) >= PI && (*angle) < ((3 * PI) / 2))
+	{
+		sprite.x -= (mov * cos(2 * PI - (*angle)));
+		sprite.y -= (mov * sin(2 * PI - (*angle)));	
+	}
+	else if (((*angle) >= ((3 * PI) / 2)) && (*angle) < (2 * PI))
+	{
+		sprite.x += (mov * cos((*angle)));
+		sprite.y -= (mov * sin((*angle)));	
+	}
+}

@@ -89,10 +89,10 @@ int main()
 						moveBackward(&angle, 5);
 						break;
 					case SDLK_a:
-						sprite.x -= 5;
+						moveLeft(&angle, 5);
 						break;
 					case SDLK_d:
-						sprite.x += 5;
+						moveRight(&angle, 5);
 						break;
 					default:
 						break;

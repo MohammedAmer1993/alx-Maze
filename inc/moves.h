@@ -9,8 +9,7 @@
 double angleIn360Range(double angle);
 void moveForward(double* angle, int mov);
 void moveBackward(double* angle, int mov);
-// void moveLeft(double angel);
-// void moveRight(double angle);
-
+void moveLeft(double* angle, int mov);
+void moveRight(double* angle, int mov);
 
 #endif  /* MOVES_H_ */
