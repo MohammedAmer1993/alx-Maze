@@ -5,7 +5,8 @@
 #include <SDL2/SDL.h>
 #include "def.h"
 #include "util.h"
-#include "oper.h"
+#include "game_build.h"
 #include "moves.h"
+#include "positions.h"
 
 #endif /* MAZE_H_ */

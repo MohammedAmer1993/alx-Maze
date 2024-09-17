@@ -7,7 +7,7 @@ SDL_Renderer* main_render = NULL;
 SDL_Surface* surface1 = NULL;
 SDL_Texture* wall = NULL;
 SDL_Texture* spr = NULL;
-SDL_Rect sprite = {50, 50, 5, 5};
+SDL_Rect sprite = {80, 80, 5, 5};
 
 
 int mapArr[MAP_HEIGHT][MAP_WIDTH] = {
@@ -66,47 +66,51 @@ int main()
 					{
 						quit = 0;
 					}
-					switch (e.key.keysym.sym)
+					else
 					{
-					case SDLK_UP:
-						sprite.y -= 5;
-						break;
-					case SDLK_DOWN:
-						sprite.y += 5;
-						break;
-					case SDLK_LEFT:
-						angle -= 0.1;
-						angle = angleIn360Range(angle);
-						break;
-					case SDLK_RIGHT:
-						angle += 0.1;
-						angle = angleIn360Range(angle);
-						break;
-					case SDLK_w:
-						moveForward(&angle, 5);
-						break;
-					case SDLK_s:
-						moveBackward(&angle, 5);
-						break;
-					case SDLK_a:
-						moveLeft(&angle, 5);
-						break;
-					case SDLK_d:
-						moveRight(&angle, 5);
-						break;
-					default:
-						break;
+
+						switch (e.key.keysym.sym)
+						{
+						case SDLK_UP:
+							sprite.y -= 5;
+							break;
+						case SDLK_DOWN:
+							sprite.y += 5;
+							break;
+						case SDLK_LEFT:
+							angle -= 0.1;
+							angle = angleIn360Range(angle);
+							break;
+						case SDLK_RIGHT:
+							angle += 0.1;
+							angle = angleIn360Range(angle);
+							break;
+						case SDLK_w:
+							moveForward(&angle, MOV_STEPS);
+							break;
+						case SDLK_s:
+							moveBackward(&angle, MOV_STEPS);
+							break;
+						case SDLK_a:
+							moveLeft(&angle, MOV_STEPS);
+							break;
+						case SDLK_d:
+							moveRight(&angle, MOV_STEPS);
+							break;
+						default:
+							break;
+						}
+					SDL_RenderCopyEx(main_render, wall, NULL, NULL, 0, NULL, SDL_FLIP_NONE);
+					degree_angle = (180 / PI) * angle;
+					status = drawMainSprite(degree_angle);
+					if (status > 0)
+					{
+						printf("couldn't pring sprint");
+						return (status);
+					}
+					SDL_RenderPresent(main_render);
 					}
 				}
-				SDL_RenderCopyEx(main_render, wall, NULL, NULL, 0, NULL, SDL_FLIP_NONE);
-				degree_angle = (180 / PI) * angle;
-				status = drawMainSprite(degree_angle);
-				if (status > 0)
-				{
-					printf("couldn't pring sprint");
-					return (status);
-				}
-				SDL_RenderPresent(main_render);
 			}
 		}
 	}

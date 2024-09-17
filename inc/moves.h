@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 #include <def.h>
+#include "positions.h"
 
 double angleIn360Range(double angle);
 void moveForward(double* angle, int mov);

@@ -1,4 +1,4 @@
-#include "oper.h"
+#include "game_build.h"
 
 int maze_init()
 {
@@ -130,8 +130,8 @@ int drawMainSprite(double angle)
 	int status = 0;
 
 	SDL_QueryTexture(spr, NULL, NULL, &w, &h);
-	sprite.w = w*5;
-	sprite.h = h*5;
+	sprite.w = w;
+	sprite.h = h;
 	if (SDL_RenderCopyEx(main_render, spr, NULL, &sprite, angle, NULL, SDL_FLIP_NONE) < 0)
 	{
 		printf("couldn't render the texture\nError: %s\n",SDL_GetError());
