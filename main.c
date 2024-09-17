@@ -86,7 +86,7 @@ int main()
 						moveForward(&angle, 5);
 						break;
 					case SDLK_s:
-						sprite.y += 5;
+						moveBackward(&angle, 5);
 						break;
 					case SDLK_a:
 						sprite.x -= 5;
