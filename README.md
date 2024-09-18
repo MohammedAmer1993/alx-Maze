@@ -11,9 +11,9 @@ Table of content
 this is the default project for ALX SE programme. The project is all about creating a maze video game just like old game called “wolfenstien”. The project is built basically on SDL2 library. This project should be compiled using gcc and will be running on linux ubuntu 16 platform.
 
 
-Authors: Mohammed Amer
-E-mail: loard.amer.2010@gmail.com
-Linkedin: ![The Maze](https://www.linkedin.com/pulse/maze-mohammed-amer-zfpef/)
+Authors: Mohammed Amer  
+E-mail: loard.amer.2010@gmail.com  
+Linkedin: [The Maze](https://www.linkedin.com/pulse/maze-mohammed-amer-zfpef/)
 
 ## Prerequisites
 
