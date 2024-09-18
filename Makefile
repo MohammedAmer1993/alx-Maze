@@ -14,9 +14,11 @@ OBJ = $(filter-out test.o, $(SRC:.c=.o))
 NAME = maze
 RM = rm
 
-.PHONY: debug all clean re tclean test
+.PHONY: debug all clean re tclean test obj
 
-all: $(OBJ)
+all: obj oclean
+
+obj: $(OBJ) 
 	$(CC) $(OBJ) $(LINKERFLAGS) $(CFLAGES) -o $(NAME)
 
 re: oclean all
