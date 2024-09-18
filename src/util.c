@@ -1,6 +1,10 @@
 #include "util.h"
 
-/* Documentation for createsurface func */
+/**
+ * loadSurface - loading surface from bmp imge
+ * @str: the path of the image
+ * Return: pointer to SDL_surface structure
+ */
 
 SDL_Surface *loadSurface(char *str)
 {
@@ -17,7 +21,11 @@ SDL_Surface *loadSurface(char *str)
 	}
 }
 
-/* Documentation for this function */
+/**
+ * createTextureFromSurface - create a texture
+ * @surface: pointer to SDL_surface
+ * Return: ponter to newly created SDL_Texture
+ */
 
 SDL_Texture *createTextureFromSurface(SDL_Surface *surface)
 {

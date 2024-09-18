@@ -9,22 +9,31 @@
 #define  CELL_SIZE          64
 #define  MOV_STEPS          5
 
-/* Documentation */
+/**
+ * struct pos - position of sprite in 2dmap
+ * @x: the x coordinate
+ * @y: the y coordinate
+ */
 typedef struct pos
 {
 	int x;
 	int y;
 } pos;
 
-/* Documentation */
-typedef enum
+/**
+ * enum collision - states of collision
+ * @COLLISION_NONE: No collision
+ * @COLLISION_DETECTED: collision detected against a wall in any side
+ * @COLLISION_X_DIR: collision detected against a wall in x direction
+ * @COLLISION_Y_DIR: collision detected against a wall in y direction
+ */
+typedef enum collision
 {
 	COLLISION_NONE, COLLISION_DETECTED, COLLISION_X_DIR, COLLISION_Y_DIR
 } collision;
 
 extern SDL_Window *main_window;
 extern SDL_Renderer *main_render;
-extern SDL_Surface *surface1;
 extern SDL_Texture *wall;
 extern SDL_Texture *spr;
 extern int mapArr[MAP_HEIGHT][MAP_WIDTH];

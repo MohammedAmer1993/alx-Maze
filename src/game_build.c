@@ -1,5 +1,12 @@
 #include "game_build.h"
 
+/**
+ * maze_init - inilization of maze
+ *
+ * this fuction take care of inializing sdl library
+ * creating window and rendere for the game
+ * Return: 0 on success any othe value represents error
+ */
 int maze_init(void)
 {
 	int success = 0;
@@ -42,6 +49,14 @@ int maze_init(void)
 	}
 	return (success);
 }
+
+/**
+ * maze_load - loading assets
+ *
+ * this function loads differnt bmp images and create
+ * textures from it
+ * Return: 0 on success any othe value represents error
+ */
 int maze_load(void)
 {
 	int status = 0;
@@ -86,8 +101,15 @@ int maze_load(void)
 	return (status);
 }
 
-
-/* Documentation for this functiion */
+/**
+ * create2Dmap - create the map
+ *
+ * this function uses creates temp texture to
+ * render the map on it and then makes the wall
+ * texture points to it and to be considered the map
+ * image
+ * Return: 0 on success any othe value represents error
+ */
 int create2Dmap(void)
 {
 	int status = 0;
@@ -123,7 +145,11 @@ int create2Dmap(void)
 	return (status);
 }
 
-
+/**
+ * drawMainSprite - draw the sprite
+ * @angle: the angle of the sprite
+ * Return: 0 on success any othe value represents error
+ */
 int drawMainSprite(double angle)
 {
 	int w = 0;
@@ -142,10 +168,19 @@ int drawMainSprite(double angle)
 	return (status);
 }
 
-
-
-
-int maze_close(void)
+/**
+ * maze_close - releases all memory
+ * Return: Nothing (void function)
+ */
+void maze_close(void)
 {
-	return (0);
+	SDL_DestroyTexture(wall);
+	SDL_DestroyTexture(spr);
+	SDL_DestroyRenderer(main_render);
+	SDL_DestroyWindow(main_window);
+	wall = NULL;
+	spr = NULL;
+	main_render = NULL;
+	main_window = NULL;
+	SDL_Quit();
 }

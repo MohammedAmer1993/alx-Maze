@@ -8,7 +8,7 @@
 
 int maze_init(void);
 int maze_load(void);
-int maze_close(void);
+void maze_close(void);
 int create2Dmap(void);
 int drawMainSprite(double angle);
 

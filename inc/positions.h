@@ -8,8 +8,8 @@
 
 pos calculatePosInArr(void);
 collision calculateCollison(pos current);
-collision calculateXCollison(pos current, double x);
-collision calculateYCollison(pos current, int y);
+collision calculateXCollison(pos current, double xVal);
+collision calculateYCollison(pos current, double yVal);
 void setAddedValueAfterColl(double *xValue, double *yValue, pos current);
 
 #endif /* POSITIONS_H_ */
