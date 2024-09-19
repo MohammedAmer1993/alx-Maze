@@ -8,6 +8,14 @@
 #define  MAP_HEIGHT         15
 #define  CELL_SIZE          64
 #define  MOV_STEPS          5
+#define  MOV_FORWARD        0.0
+#define  FORWARD_SIGN       1
+#define  MOV_BACKWARD       0.0
+#define  BACKWARD_SIGN      -1
+#define  MOV_LEFT           - (PI / 2)
+#define  LEFT_SIGN          1
+#define  MOV_RIGHT          (PI / 2)
+#define  RIGHT_SIGN          1
 
 /**
  * struct pos - position of sprite in 2dmap

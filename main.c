@@ -94,16 +94,16 @@ int main(int argc, char *argv[])
 							angle = angleIn360Range(angle);
 							break;
 						case SDLK_w:
-							moveForward(&angle, MOV_STEPS);
+							move(&angle, MOV_STEPS, FORWARD_SIGN, MOV_FORWARD);
 							break;
 						case SDLK_s:
-							moveBackward(&angle, MOV_STEPS);
+							move(&angle, MOV_STEPS, BACKWARD_SIGN, MOV_BACKWARD);
 							break;
 						case SDLK_a:
-							moveLeft(&angle, MOV_STEPS);
+							move(&angle, MOV_STEPS, LEFT_SIGN, MOV_LEFT);
 							break;
 						case SDLK_d:
-							moveRight(&angle, MOV_STEPS);
+							move(&angle, MOV_STEPS, RIGHT_SIGN, MOV_RIGHT);
 							break;
 						default:
 							break;
