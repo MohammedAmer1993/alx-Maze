@@ -7,7 +7,7 @@
 #define  MAP_WIDTH          20
 #define  MAP_HEIGHT         15
 #define  CELL_SIZE          64
-#define  MOV_STEPS          5
+#define  MOV_STEPS          1
 #define  MOV_FORWARD        0.0
 #define  FORWARD_SIGN       1
 #define  MOV_BACKWARD       0.0
@@ -39,6 +39,18 @@ typedef enum collision
 {
 	COLLISION_NONE, COLLISION_DETECTED, COLLISION_X_DIR, COLLISION_Y_DIR
 } collision;
+
+/**
+ * struct state - a point on the plane in px
+ * @x: the x coordinate
+ * @y: the y coordinate 
+ */
+
+
+typedef struct point {
+	double x;
+	double y;
+} point;
 
 extern SDL_Window *main_window;
 extern SDL_Renderer *main_render;

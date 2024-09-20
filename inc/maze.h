@@ -8,5 +8,7 @@
 #include "game_build.h"
 #include "moves.h"
 #include "positions.h"
+#include "raycasting.h"
+#include "raycasting_util.h"
 
 #endif /* MAZE_H_ */

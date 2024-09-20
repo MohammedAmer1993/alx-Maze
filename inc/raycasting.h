@@ -6,5 +6,8 @@
 #include <stdio.h>
 #include "def.h"
 #include "positions.h"
+#include "raycasting_util.h"
 
+
+double calculateDistance(double angle);
 #endif /* RAYCASTING_H_ */
