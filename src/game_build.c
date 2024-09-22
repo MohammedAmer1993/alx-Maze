@@ -81,7 +81,7 @@ int maze_load(void)
 		}
 	}
 
-	surface2 = loadSurface("assets/sprite2.bmp");
+	surface2 = loadSurface("assets/sprite.bmp");
 	if (surface2 == NULL)
 	{
 		status = 1;
@@ -140,6 +140,15 @@ int create2Dmap(void)
 			}
 		}
 	}
+	SDL_SetRenderDrawColor(main_render, 150, 150, 150, 255);
+	for (int i = 0; i < MAP_HEIGHT; ++i)
+	{
+		SDL_RenderDrawLine(main_render, 0, i * CELL_SIZE , SCREEN_WIDTH, i * CELL_SIZE);
+	}
+	for (int j = 0; j < MAP_WIDTH; ++j)
+	{
+		SDL_RenderDrawLine(main_render, j * CELL_SIZE, 0 , j * CELL_SIZE, SCREEN_HEIGHT);
+	}
 	SDL_SetRenderTarget(main_render, NULL);
 	wall = texture;
 	return (status);
@@ -184,3 +193,4 @@ void maze_close(void)
 	main_window = NULL;
 	SDL_Quit();
 }
+

@@ -8,5 +8,6 @@
 #include "positions.h"
 
 double angleIn360Range(double angle);
-void move(double *angle, int mov, char sign, double quarter);
+void move(double angle, int mov, char sign, double quarter);
+void correctionForXandY(double *Xval, double *Yval);
 #endif /* MOVES_H_ */

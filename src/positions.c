@@ -1,10 +1,10 @@
 #include "positions.h"
 
 /**
- * calculatePosInArr - calculate the position of sprite on 2dmap
+ * getCurrentPos - calculate the position of sprite on 2dmap
  * Return: a structure pos (x,y) coordinate with respect to 2dmap
  */
-pos calculatePosInArr(void)
+pos getCurrentPos(void)
 {
 	pos current = {-1, -1};
 	int x = sprite.x;
@@ -16,22 +16,6 @@ pos calculatePosInArr(void)
 	return (current);
 }
 
-/**
- * calculateCollison - detect a collison
- * @current: the postion of sprite with respect to 2dmap
- * Return: enum cosslision
- */
-collision calculateCollison(pos current)
-{
-	if (mapArr[current.y][current.x] == 1)
-	{
-		return (COLLISION_DETECTED);
-	}
-	else
-	{
-		return (COLLISION_NONE);
-	}
-}
 
 /**
  * calculateXCollison - detect if collison is going to happen in x direction
@@ -39,11 +23,10 @@ collision calculateCollison(pos current)
  * @xVal: the added value in x direction
  * Return: enum collision
  */
-collision calculateXCollison(pos current, double xVal)
+collision calculateXCollison(pos current, point spriteCenter, double xVal)
 {
 	int xCor = 0;
-
-	xCor = floor((sprite.x + round(xVal)) / CELL_SIZE);
+	xCor = floor((spriteCenter.x + round(xVal)) / CELL_SIZE);
 	if (mapArr[current.y][xCor] == 1)
 	{
 		return (COLLISION_X_DIR);
@@ -60,11 +43,11 @@ collision calculateXCollison(pos current, double xVal)
  * @yVal: the added value in y direction
  * Return: enum collision
  */
-collision calculateYCollison(pos current, double yVal)
+collision calculateYCollison(pos current, point spriteCenter, double yVal)
 {
 	int yCor = 0;
 
-	yCor = floor((sprite.y + round(yVal)) / CELL_SIZE);
+	yCor = floor((spriteCenter.y + round(yVal)) / CELL_SIZE);
 	if (mapArr[yCor][current.x] == 1)
 	{
 		return (COLLISION_Y_DIR);
@@ -82,14 +65,23 @@ collision calculateYCollison(pos current, double yVal)
  * @current: postion of sprite with respect to 2dmap
  * Return: Nothing (void function)
  */
-void setAddedValueAfterColl(double *xValue, double *yValue, pos current)
+void setAddedValueAfterColl(double *xValue, double *yValue, pos current, point spriteCenter)
 {
-	if (calculateXCollison(current, *xValue) == COLLISION_X_DIR)
+	if (calculateXCollison(current, spriteCenter,*xValue) == COLLISION_X_DIR)
 	{
 		*xValue = 0;
 	}
-	if (calculateYCollison(current, *yValue) == COLLISION_Y_DIR)
+	if (calculateYCollison(current, spriteCenter, *yValue) == COLLISION_Y_DIR)
 	{
 		*yValue = 0;
 	}
+}
+
+point getSprCenter(double angle)
+{
+	point center = {0, 0};
+	double diognalLen = sprite.w * sqrt(2);
+	center.x = sprite.x + (diognalLen * cos(angle)) / 2;
+	center.y = sprite.y + (diognalLen * sin(angle)) / 2;
+	return (center);
 }

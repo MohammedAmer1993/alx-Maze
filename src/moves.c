@@ -26,15 +26,38 @@ double angleIn360Range(double angle)
  * @quarter: to determine the perpendcular movement, righ or left
  * Return: Nothing (void function)
  */
-void move(double *angle, int mov, char sign, double quarter)
+void move(double angle, int mov, char sign, double quarter)
 {
-	pos current = calculatePosInArr();
+	pos current = getCurrentPos();
 	double xValue = 0;
 	double yValue = 0;
+	point spriteCenter = getSprCenter(angle);
 
-	xValue = sign * mov * cos((*angle + quarter));
-	yValue = sign * mov * sin((*angle + quarter));
-	setAddedValueAfterColl(&xValue, &yValue, current);
+	xValue = sign * mov * cos((angle + quarter));
+	yValue = sign * mov * sin((angle + quarter));
+	correctionForXandY(&xValue, &yValue);
+	setAddedValueAfterColl(&xValue, &yValue, current, spriteCenter);
 	sprite.x += xValue;
 	sprite.y += yValue;  /* int dosn't have dicimal BUG */
+}
+
+
+void correctionForXandY(double *Xval, double *Yval)
+{
+	if (*Xval > 0)
+	{
+		*Xval = ceil(*Xval);
+	}
+	else
+	{
+		*Xval = -1 * ceil(-1 * (*Xval));
+	}
+	if (*Yval > 0)
+	{
+		*Yval = ceil(*Yval);
+	}
+	else
+	{
+		*Yval = -1 * ceil(-1 * (*Yval));
+	}
 }

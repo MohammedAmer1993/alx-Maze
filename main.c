@@ -25,7 +25,6 @@ int mapArr[MAP_HEIGHT][MAP_WIDTH] = {
 		{1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1},
 		{1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-
 	};
 
 /**
@@ -53,6 +52,7 @@ int main(int argc, char *argv[])
 	else
 	{
 		status = maze_load();
+
 		if (status > 0)
 		{
 			printf("couldn't load the map");
@@ -80,10 +80,10 @@ int main(int argc, char *argv[])
 						switch (e.key.keysym.sym)
 						{
 						case SDLK_UP:
-							sprite.y -= 5;
+							sprite.y -= 1;
 							break;
 						case SDLK_DOWN:
-							sprite.y += 5;
+							sprite.y += 1;
 							break;
 						case SDLK_LEFT:
 							angle -= 0.1;
@@ -94,29 +94,31 @@ int main(int argc, char *argv[])
 							angle = angleIn360Range(angle);
 							break;
 						case SDLK_w:
-							move(&angle, MOV_STEPS, FORWARD_SIGN, MOV_FORWARD);
+							move(angle, MOV_STEPS, FORWARD_SIGN, MOV_FORWARD);
+							printf("%f\n", calculateDistance(angle));
 							break;
 						case SDLK_s:
-							move(&angle, MOV_STEPS, BACKWARD_SIGN, MOV_BACKWARD);
+							move(angle, MOV_STEPS, BACKWARD_SIGN, MOV_BACKWARD);
+							printf("%f\n", calculateDistance(angle));
 							break;
 						case SDLK_a:
-							move(&angle, MOV_STEPS, LEFT_SIGN, MOV_LEFT);
+							move(angle, MOV_STEPS, LEFT_SIGN, MOV_LEFT);
 							break;
 						case SDLK_d:
-							move(&angle, MOV_STEPS, RIGHT_SIGN, MOV_RIGHT);
+							move(angle, MOV_STEPS, RIGHT_SIGN, MOV_RIGHT);
 							break;
 						default:
 							break;
 						}
-					SDL_RenderCopyEx(main_render, wall, NULL, NULL, 0, NULL, SDL_FLIP_NONE);
-					degree_angle = (180 / PI) * angle;
-					status = drawMainSprite(degree_angle);
-					if (status > 0)
-					{
-						printf("couldn't pring sprint");
-						return (status);
-					}
-					SDL_RenderPresent(main_render);
+						SDL_RenderCopyEx(main_render, wall, NULL, NULL, 0, NULL, SDL_FLIP_NONE);
+						degree_angle = (180 / PI) * angle;
+						status = drawMainSprite(degree_angle);
+						if (status > 0)
+						{
+							printf("couldn't pring sprint");
+							return (status);
+						}
+						SDL_RenderPresent(main_render);
 					}
 				}
 			}

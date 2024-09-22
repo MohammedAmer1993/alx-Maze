@@ -7,8 +7,9 @@
 #include "def.h"
 #include "positions.h"
 
-pos directionVector(double angle);
-point getInitialState(double angle);
-
+pos getPositionForPoint(point endpoint);
+collision calulateCollandTextureType(pos current);
+point getInitialState(double angle, point spriteCenter);
+direction getBeamState(double angle);
 
 #endif /* RAYCASTING_UTIL_H_ */

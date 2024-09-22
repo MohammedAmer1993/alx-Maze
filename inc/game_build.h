@@ -11,6 +11,7 @@ int maze_load(void);
 void maze_close(void);
 int create2Dmap(void);
 int drawMainSprite(double angle);
+void draw_grid();
 
 
 #endif /* GAME_BUILD_H_ */
