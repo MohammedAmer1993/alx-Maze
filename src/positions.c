@@ -27,19 +27,17 @@ collision calculateXCollison(pos current, double xVal)
 {
 	int xCor = 0;
 	collision state = COLLISION_NONE;
-	SDL_Point collPoints[3];
+	SDL_Point collPoints[8];
 	getCollDetectionPoints(collPoints);
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < 8; ++i)
 	{
 		xCor = floor((collPoints[i].x + xVal) / CELL_SIZE);
-		printf("ix %d iy %d\n", collPoints[i].x, collPoints[i].y);
 		if (mapArr[current.y][xCor] != 0)
 		{
 			state = COLLISION_X_DIR;
 		}
 	}
 	return (state);
-	printf("x cor %d y cor %d\n", current.x, current.y);
 }
 
 /**
@@ -52,9 +50,9 @@ collision calculateYCollison(pos current, double yVal)
 {
 	int yCor = 0;
 	collision state = COLLISION_NONE;
-	SDL_Point collPoints[3];
+	SDL_Point collPoints[8];
 	getCollDetectionPoints(collPoints);
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < 8; ++i)
 	{
 
 		yCor = floor((collPoints[i].y + yVal) / CELL_SIZE);
@@ -89,7 +87,6 @@ SDL_Point getSprCenter()
 {
 	SDL_Point center = {0, 0};
 	double diognalLen = sprite.w * sqrt(2);
-	printf("%f mmmm\n", diognalLen);
 	center.x = sprite.x + (diognalLen * cos(ANGLE_OF_DETECTOR)) / 2;
 	center.y = sprite.y + (diognalLen * sin(ANGLE_OF_DETECTOR)) / 2;
 	return (center);
@@ -103,12 +100,39 @@ void getCollDetectionPoints(SDL_Point *points)
 
 	points[0].x = sprite.x;
 	points[0].y = sprite.y;
+
 	x = sprite.x + len * cos(FRONT_POINT_ANGLE);
 	y = sprite.y + len * sin(FRONT_POINT_ANGLE);
 	points[1].x = x;
 	points[1].y = y;
-	x = sprite.x + sprite.w * cos(BOTTOM_POINT_ANGLE);
-	y = sprite.y + sprite.w * sin(BOTTOM_POINT_ANGLE);
+
+	x = sprite.x + (0.6666 * len * cos(FRONT_POINT_ANGLE));
+	y = sprite.y + (0.6666 * len * sin(FRONT_POINT_ANGLE));
 	points[2].x = x;
 	points[2].y = y;
+
+	x = sprite.x + (0.3333 * len * cos(FRONT_POINT_ANGLE));
+	y = sprite.y + (0.3333 * len * sin(FRONT_POINT_ANGLE));
+	points[3].x = x;
+	points[3].y = y;
+
+	x = sprite.x + (0.6666 * len * cos((2 * PI) - FRONT_POINT_ANGLE));
+	y = sprite.y + (0.6666 * len * sin((2 * PI) - FRONT_POINT_ANGLE));
+	points[4].x = x;
+	points[4].y = y;
+
+	x = sprite.x + (0.3333 * len * cos((2 * PI) - FRONT_POINT_ANGLE));
+	y = sprite.y + (0.3333 * len * sin((2 * PI) - FRONT_POINT_ANGLE));
+	points[5].x = x;
+	points[5].y = y;
+
+	x = sprite.x + sprite.w * cos(BOTTOM_POINT_ANGLE);
+	y = sprite.y + sprite.w * sin(BOTTOM_POINT_ANGLE);
+	points[6].x = x;
+	points[6].y = y;
+
+	x = sprite.x + (sprite.w / 2) * cos(BOTTOM_POINT_ANGLE);
+	y = sprite.y + (sprite.w / 2) * sin(BOTTOM_POINT_ANGLE);
+	points[7].x = x;
+	points[7].y = y;
 }

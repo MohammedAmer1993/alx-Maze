@@ -11,51 +11,49 @@ double calculateDistance(double angle)
 	double lengthForHorCollLine = 0;
 	double addWhenMovX = 0;
 	double addWhenMovY = 0;
-	double DistanceOfColl = -1;
+	double lenOfRay = -1;
 	direction beamDir = getBeamState(angle);
 	collision collFlag = COLLISION_NONE;
 
 	switch (beamDir)
 	{
 	case BEAM_FORWARD:
-		DistanceOfColl = calculateCollDistanceForward(spriteCenter, &collFlag);
+		lenOfRay = calculateRayLenForward(spriteCenter, &collFlag);
 		break;
 	case BEAM_DOWN:
-		DistanceOfColl = calculateCollDistanceDown(spriteCenter, &collFlag);
+		lenOfRay = calculateRayLenDown(spriteCenter, &collFlag);
 		break;
 	case BEAM_BACKWARD:
-		DistanceOfColl = calculateCollDistanceBackward(spriteCenter, &collFlag);
+		lenOfRay = calculateRayLenBackward(spriteCenter, &collFlag);
 		break;
 	case BEAM_UP:
-		DistanceOfColl = calculateCollDistanceUp(spriteCenter, &collFlag);
+		lenOfRay = calculateRayLenUp(spriteCenter, &collFlag);
 		break;
 	default:
 		distanceForOneInXDir = sqrt(1 + tan(angle) * tan(angle));
 		distanceForOneInYDir = sqrt(1 + (1 / tan(angle)) * (1 / tan(angle)));
 		lengthForVerCollLine = fabs(initialStatePoint.x / cos(angle));
 		lengthForHorCollLine = fabs(initialStatePoint.y / sin(angle));
-		while (DistanceOfColl == -1)
+		while (lenOfRay == -1)
 		{
 			lengthForVerCollLine += addWhenMovX;
 			lengthForHorCollLine += addWhenMovY;
-			DistanceOfColl = calculateCollDistance(lengthForVerCollLine, lengthForHorCollLine, angle, spriteCenter);
+			lenOfRay = calculateRayLen(lengthForVerCollLine, lengthForHorCollLine, angle, spriteCenter);
 			addWhenMovX += distanceForOneInXDir;
 			addWhenMovY += distanceForOneInYDir;
 		}
 		break;
 	}
-	return (DistanceOfColl);
+	return (lenOfRay);
 }
 
 
-double calculateCollDistance(double lengthForVerCollLine, double lengthForHorCollLine, double angle, SDL_Point spriteCenter)
+double calculateRayLen(double lengthForVerCollLine, double lengthForHorCollLine, double angle, SDL_Point spriteCenter)
 {
 	point pointCollVer = {spriteCenter.x + lengthForVerCollLine * cos(angle), spriteCenter.y + lengthForVerCollLine * sin(angle)};
 	point pointCollHor = {spriteCenter.x + lengthForHorCollLine * cos(angle), spriteCenter.y + lengthForHorCollLine * sin(angle)};
 	point tmpVerPoint = {pointCollVer.x + cos(angle), pointCollVer.y + sin(angle)};
 	point tmpHorPoint = {pointCollHor.x + cos(angle), pointCollHor.y + sin(angle)};
-
-	printf("pointpos %f %f\n", lengthForVerCollLine, lengthForHorCollLine);
 	
 	pos pointPosIn2dArrForVerColl = {0, 0};
 	pos pointPosIn2dArrForHorColl = {0, 0};
@@ -94,7 +92,7 @@ double calculateCollDistance(double lengthForVerCollLine, double lengthForHorCol
 	}
 }
 
-double calculateCollDistanceForward(SDL_Point spriteCenter, collision *collFlag)
+double calculateRayLenForward(SDL_Point spriteCenter, collision *collFlag)
 {
 	pos current = getCurrentPos();
 	int collCordinate = 0;
@@ -133,7 +131,7 @@ double calculateCollDistanceForward(SDL_Point spriteCenter, collision *collFlag)
 	return (distanceForward);
 }
 
-double calculateCollDistanceBackward(SDL_Point spriteCenter, collision *collFlag)
+double calculateRayLenBackward(SDL_Point spriteCenter, collision *collFlag)
 {
 	pos current = getCurrentPos();
 	int collCordinate = 0;
@@ -171,7 +169,7 @@ double calculateCollDistanceBackward(SDL_Point spriteCenter, collision *collFlag
 	return (distanceForward);
 }
 
-double calculateCollDistanceDown(SDL_Point spriteCenter, collision *collFlag)
+double calculateRayLenDown(SDL_Point spriteCenter, collision *collFlag)
 {
 	pos current = getCurrentPos();
 	int collCordinate = 0;
@@ -209,7 +207,7 @@ double calculateCollDistanceDown(SDL_Point spriteCenter, collision *collFlag)
 	return (distanceForward);
 }
 
-double calculateCollDistanceUp(SDL_Point spriteCenter, collision *collFlag)
+double calculateRayLenUp(SDL_Point spriteCenter, collision *collFlag)
 {
 	pos current = getCurrentPos();
 	int collCordinate = 0;
@@ -247,3 +245,57 @@ double calculateCollDistanceUp(SDL_Point spriteCenter, collision *collFlag)
 	return (distanceForward);
 }
 
+
+
+
+/* test 
+
+double calculateRayLenForward(SDL_Point spriteCenter, collision *collFlag)
+{
+	pos current = getCurrentPos();
+	int collCordinate = 0;
+	double distanceForward = 0;
+	*collFlag = COLLISION_NONE;
+
+	for (int i = current.y - 1; i >= 0; --i)
+	switch (mapArr[i][current.x])
+	for (int i = current.y + 1; i < SCREEN_HEIGHT; ++i)
+	switch (mapArr[i][current.x])
+	for (int i = current.x - 1; i >= 0; --i)
+	switch (mapArr[current.y][i])
+	for (int i = current.x + 1; i < MAP_WIDTH; ++i)
+	switch (mapArr[current.y][i])
+
+
+	{
+		switch (mapArr[current.y][i])
+		{
+		case COLLISION_DETECTED_TEXT_1:
+			collCordinate = i;
+			*collFlag = COLLISION_DETECTED_TEXT_1;
+			break;
+		case COLLISION_DETECTED_TEXT_2:
+			collCordinate = i;
+			*collFlag = COLLISION_DETECTED_TEXT_2;
+			break;
+		case COLLISION_DETECTED_TEXT_3:
+			collCordinate = i;
+			*collFlag = COLLISION_DETECTED_TEXT_3;
+			break;
+		case COLLISION_DETECTED_TEXT_4:
+			collCordinate = i;
+			*collFlag = COLLISION_DETECTED_TEXT_4;
+			break;
+		default:
+			break;
+		}
+		if (*collFlag != COLLISION_NONE)
+		{
+			break;
+		}
+	}
+	distanceForward = collCordinate * CELL_SIZE - spriteCenter.x;
+	return (distanceForward);
+}
+
+*/

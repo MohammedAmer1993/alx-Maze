@@ -95,11 +95,10 @@ int main(int argc, char *argv[])
 							break;
 						case SDLK_w:
 							move(angle, MOV_STEPS, FORWARD_SIGN, MOV_FORWARD);
-							printf("%f\n", angle);
+							printf("distance %f\n", calculateDistance(angle));
 							break;
 						case SDLK_s:
 							move(angle, MOV_STEPS, BACKWARD_SIGN, MOV_BACKWARD);
-							printf("%f\n", angle);
 							break;
 						case SDLK_a:
 							move(angle, MOV_STEPS, LEFT_SIGN, MOV_LEFT);
