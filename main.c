@@ -36,7 +36,7 @@ int mapArr[MAP_HEIGHT][MAP_WIDTH] = {
 int main(int argc, char *argv[])
 {
 	int status = 0;
-	SDL_Event e;
+	SDL_Event e = {0};
 	int quit = 1;
 	double angle = 0;
 	double degree_angle = 0;
@@ -95,11 +95,11 @@ int main(int argc, char *argv[])
 							break;
 						case SDLK_w:
 							move(angle, MOV_STEPS, FORWARD_SIGN, MOV_FORWARD);
-							printf("%f\n", calculateDistance(angle));
+							printf("%f\n", angle);
 							break;
 						case SDLK_s:
 							move(angle, MOV_STEPS, BACKWARD_SIGN, MOV_BACKWARD);
-							printf("%f\n", calculateDistance(angle));
+							printf("%f\n", angle);
 							break;
 						case SDLK_a:
 							move(angle, MOV_STEPS, LEFT_SIGN, MOV_LEFT);

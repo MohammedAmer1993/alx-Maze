@@ -23,18 +23,23 @@ pos getCurrentPos(void)
  * @xVal: the added value in x direction
  * Return: enum collision
  */
-collision calculateXCollison(pos current, point spriteCenter, double xVal)
+collision calculateXCollison(pos current, double xVal)
 {
 	int xCor = 0;
-	xCor = floor((spriteCenter.x + round(xVal)) / CELL_SIZE);
-	if (mapArr[current.y][xCor] == 1)
+	collision state = COLLISION_NONE;
+	SDL_Point collPoints[3];
+	getCollDetectionPoints(collPoints);
+	for (int i = 0; i < 3; ++i)
 	{
-		return (COLLISION_X_DIR);
+		xCor = floor((collPoints[i].x + xVal) / CELL_SIZE);
+		printf("ix %d iy %d\n", collPoints[i].x, collPoints[i].y);
+		if (mapArr[current.y][xCor] != 0)
+		{
+			state = COLLISION_X_DIR;
+		}
 	}
-	else
-	{
-		return (COLLISION_NONE);
-	}
+	return (state);
+	printf("x cor %d y cor %d\n", current.x, current.y);
 }
 
 /**
@@ -43,19 +48,22 @@ collision calculateXCollison(pos current, point spriteCenter, double xVal)
  * @yVal: the added value in y direction
  * Return: enum collision
  */
-collision calculateYCollison(pos current, point spriteCenter, double yVal)
+collision calculateYCollison(pos current, double yVal)
 {
 	int yCor = 0;
+	collision state = COLLISION_NONE;
+	SDL_Point collPoints[3];
+	getCollDetectionPoints(collPoints);
+	for (int i = 0; i < 3; ++i)
+	{
 
-	yCor = floor((spriteCenter.y + round(yVal)) / CELL_SIZE);
-	if (mapArr[yCor][current.x] == 1)
-	{
-		return (COLLISION_Y_DIR);
+		yCor = floor((collPoints[i].y + yVal) / CELL_SIZE);
+		if (mapArr[yCor][current.x] != 0)
+		{
+			state =  COLLISION_Y_DIR;
+		}
 	}
-	else
-	{
-		return (COLLISION_NONE);
-	}
+	return (state);
 }
 
 /**
@@ -65,23 +73,42 @@ collision calculateYCollison(pos current, point spriteCenter, double yVal)
  * @current: postion of sprite with respect to 2dmap
  * Return: Nothing (void function)
  */
-void setAddedValueAfterColl(double *xValue, double *yValue, pos current, point spriteCenter)
+void setAddedValueAfterColl(double *xValue, double *yValue, pos current)
 {
-	if (calculateXCollison(current, spriteCenter,*xValue) == COLLISION_X_DIR)
+	if (calculateXCollison(current, *xValue) == COLLISION_X_DIR)
 	{
 		*xValue = 0;
 	}
-	if (calculateYCollison(current, spriteCenter, *yValue) == COLLISION_Y_DIR)
+	if (calculateYCollison(current, *yValue) == COLLISION_Y_DIR)
 	{
 		*yValue = 0;
 	}
 }
 
-point getSprCenter(double angle)
+SDL_Point getSprCenter()
 {
-	point center = {0, 0};
+	SDL_Point center = {0, 0};
 	double diognalLen = sprite.w * sqrt(2);
-	center.x = sprite.x + (diognalLen * cos(angle)) / 2;
-	center.y = sprite.y + (diognalLen * sin(angle)) / 2;
+	printf("%f mmmm\n", diognalLen);
+	center.x = sprite.x + (diognalLen * cos(ANGLE_OF_DETECTOR)) / 2;
+	center.y = sprite.y + (diognalLen * sin(ANGLE_OF_DETECTOR)) / 2;
 	return (center);
+}
+
+void getCollDetectionPoints(SDL_Point *points)
+{
+	int x = 0;
+	int y = 0;
+	double len = sqrt((sprite.w * sprite.w) + ((sprite.w / 2) * (sprite.w / 2)));
+
+	points[0].x = sprite.x;
+	points[0].y = sprite.y;
+	x = sprite.x + len * cos(FRONT_POINT_ANGLE);
+	y = sprite.y + len * sin(FRONT_POINT_ANGLE);
+	points[1].x = x;
+	points[1].y = y;
+	x = sprite.x + sprite.w * cos(BOTTOM_POINT_ANGLE);
+	y = sprite.y + sprite.w * sin(BOTTOM_POINT_ANGLE);
+	points[2].x = x;
+	points[2].y = y;
 }

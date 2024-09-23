@@ -27,7 +27,7 @@ pos directionVector(double angle)
 }
 
 
-point getInitialState(double angle, point spriteCenter)
+point getInitialState(double angle, SDL_Point spriteCenter)
 {
 	pos current = getCurrentPos();
 	point intialState = {0, 0};

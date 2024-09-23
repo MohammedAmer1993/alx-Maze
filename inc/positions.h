@@ -7,9 +7,9 @@
 #include "def.h"
 
 pos getCurrentPos(void);
-collision calculateXCollison(pos current, point spriteCenter, double xVal);
-collision calculateYCollison(pos current, point spriteCenter, double yVal);
-void setAddedValueAfterColl(double *xValue, double *yValue, pos current, point spriteCenter);
-point getSprCenter(double angle);
-
+collision calculateXCollison(pos current, double xVal);
+collision calculateYCollison(pos current, double yVal);
+void setAddedValueAfterColl(double *xValue, double *yValue, pos current);
+SDL_Point getSprCenter();
+void getCollDetectionPoints(SDL_Point *points);
 #endif /* POSITIONS_H_ */

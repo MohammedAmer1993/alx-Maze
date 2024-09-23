@@ -3,7 +3,7 @@
 
 double calculateDistance(double angle)
 {
-	point spriteCenter = getSprCenter(angle);
+	SDL_Point spriteCenter = getSprCenter(angle);
 	point initialStatePoint = getInitialState(angle, spriteCenter);
 	double distanceForOneInXDir = 0;
 	double distanceForOneInYDir = 0;
@@ -48,7 +48,7 @@ double calculateDistance(double angle)
 }
 
 
-double calculateCollDistance(double lengthForVerCollLine, double lengthForHorCollLine, double angle, point spriteCenter)
+double calculateCollDistance(double lengthForVerCollLine, double lengthForHorCollLine, double angle, SDL_Point spriteCenter)
 {
 	point pointCollVer = {spriteCenter.x + lengthForVerCollLine * cos(angle), spriteCenter.y + lengthForVerCollLine * sin(angle)};
 	point pointCollHor = {spriteCenter.x + lengthForHorCollLine * cos(angle), spriteCenter.y + lengthForHorCollLine * sin(angle)};
@@ -94,7 +94,7 @@ double calculateCollDistance(double lengthForVerCollLine, double lengthForHorCol
 	}
 }
 
-double calculateCollDistanceForward(point spriteCenter, collision *collFlag)
+double calculateCollDistanceForward(SDL_Point spriteCenter, collision *collFlag)
 {
 	pos current = getCurrentPos();
 	int collCordinate = 0;
@@ -133,7 +133,7 @@ double calculateCollDistanceForward(point spriteCenter, collision *collFlag)
 	return (distanceForward);
 }
 
-double calculateCollDistanceBackward(point spriteCenter, collision *collFlag)
+double calculateCollDistanceBackward(SDL_Point spriteCenter, collision *collFlag)
 {
 	pos current = getCurrentPos();
 	int collCordinate = 0;
@@ -171,7 +171,7 @@ double calculateCollDistanceBackward(point spriteCenter, collision *collFlag)
 	return (distanceForward);
 }
 
-double calculateCollDistanceDown(point spriteCenter, collision *collFlag)
+double calculateCollDistanceDown(SDL_Point spriteCenter, collision *collFlag)
 {
 	pos current = getCurrentPos();
 	int collCordinate = 0;
@@ -209,7 +209,7 @@ double calculateCollDistanceDown(point spriteCenter, collision *collFlag)
 	return (distanceForward);
 }
 
-double calculateCollDistanceUp(point spriteCenter, collision *collFlag)
+double calculateCollDistanceUp(SDL_Point spriteCenter, collision *collFlag)
 {
 	pos current = getCurrentPos();
 	int collCordinate = 0;

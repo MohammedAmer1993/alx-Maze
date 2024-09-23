@@ -31,14 +31,14 @@ void move(double angle, int mov, char sign, double quarter)
 	pos current = getCurrentPos();
 	double xValue = 0;
 	double yValue = 0;
-	point spriteCenter = getSprCenter(angle);
 
 	xValue = sign * mov * cos((angle + quarter));
 	yValue = sign * mov * sin((angle + quarter));
 	correctionForXandY(&xValue, &yValue);
-	setAddedValueAfterColl(&xValue, &yValue, current, spriteCenter);
+	setAddedValueAfterColl(&xValue, &yValue, current);
 	sprite.x += xValue;
 	sprite.y += yValue;  /* int dosn't have dicimal BUG */
+	
 }
 
 

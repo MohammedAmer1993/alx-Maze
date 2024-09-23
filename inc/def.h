@@ -1,21 +1,31 @@
 #ifndef DEF_H_
 #define DEF_H_
 
-#define  PI                 3.14159265358979323846
-#define  SCREEN_WIDTH       1280
-#define  SCREEN_HEIGHT      960
-#define  MAP_WIDTH          20
-#define  MAP_HEIGHT         15
-#define  CELL_SIZE          64
-#define  MOV_STEPS          5
-#define  MOV_FORWARD        0.0
-#define  FORWARD_SIGN       1
-#define  MOV_BACKWARD       0.0
-#define  BACKWARD_SIGN      -1
-#define  MOV_LEFT           (-(PI / 2))
-#define  LEFT_SIGN          1
-#define  MOV_RIGHT          (PI / 2)
-#define  RIGHT_SIGN          1
+/* Mathmatical pi number */
+#define  PI                       3.14159265358979323846
+
+/* Dimensions of game */
+#define  SCREEN_WIDTH             1280
+#define  SCREEN_HEIGHT            960
+#define  MAP_WIDTH                20
+#define  MAP_HEIGHT               15
+#define  CELL_SIZE                64
+#define  MOV_STEPS                5
+
+/* some symbols and angles for moving function */
+#define  MOV_FORWARD              0.0
+#define  FORWARD_SIGN             1
+#define  MOV_BACKWARD             0.0
+#define  BACKWARD_SIGN            -1
+#define  MOV_LEFT                 (-(PI / 2))
+#define  LEFT_SIGN                1
+#define  MOV_RIGHT                (PI / 2)
+#define  RIGHT_SIGN               1
+
+/* these are some angles used in analisis */
+#define  ANGLE_OF_DETECTOR        (PI / 4)       /* angle for center point of the sprite */
+#define  FRONT_POINT_ANGLE        0.463647609    /* angle for front and in the middle of line of the sprite */
+#define  BOTTOM_POINT_ANGLE       (PI / 2)	 /* angle for the bottom point of sprite */
 
 /**
  * struct pos - position of sprite in 2dmap

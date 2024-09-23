@@ -113,7 +113,7 @@ int maze_load(void)
 int create2Dmap(void)
 {
 	int status = 0;
-	SDL_Texture *texture;
+	SDL_Texture *texture = NULL;
 	SDL_Rect fillRect = {0, 0, CELL_SIZE, CELL_SIZE};
 
 	texture = SDL_CreateTexture(main_render, SDL_PIXELFORMAT_RGBA8888,
@@ -150,6 +150,7 @@ int create2Dmap(void)
 		SDL_RenderDrawLine(main_render, j * CELL_SIZE, 0 , j * CELL_SIZE, SCREEN_HEIGHT);
 	}
 	SDL_SetRenderTarget(main_render, NULL);
+	SDL_DestroyTexture(wall);
 	wall = texture;
 	return (status);
 }
