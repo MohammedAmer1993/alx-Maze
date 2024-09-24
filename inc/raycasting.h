@@ -9,10 +9,10 @@
 #include "raycasting_util.h"
 
 double calculateDistance(double angle);
-double calculateRayLen(double lengthForVerCollLine, double lengthForHorCollLine, double angle, SDL_Point);
-double calculateRayLenForward(SDL_Point, collision *collFlag);
-double calculateRayLenBackward(SDL_Point, collision *collFlag);
-double calculateRayLenDown(SDL_Point, collision *collFlag);
-double calculateRayLenUp(SDL_Point, collision *collFlag);
+double calculateRayLen(double lengthForVerCollLine, double lengthForHorCollLine, double angle, SDL_Point spriteCenter );
+double calculateRayLenForward(SDL_Point spriteCenter , collision *collFlag);
+double calculateRayLenBackward(SDL_Point spriteCenter , collision *collFlag);
+double calculateRayLenDown(SDL_Point spriteCenter , collision *collFlag);
+double calculateRayLenUp(SDL_Point spriteCenter , collision *collFlag);
 void getRayCastingArr(SDL_Point *arr, int size, double angle);
 #endif /* RAYCASTING_H_ */

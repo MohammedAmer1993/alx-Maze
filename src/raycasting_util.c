@@ -24,12 +24,12 @@ direction getBeamState(double angle)
 
 
 
-point getInitialState(direction beamState, SDL_Point spriteCenter)
+SDL_Point getInitialState(direction beamState, SDL_Point spriteCenter)
 {
 
 
-	pos current = getCurrentPos();
-	point intialState = {0, 0};
+	pos current = getPositionForPoint(spriteCenter);
+	SDL_Point intialState = {0, 0};
 
 	switch (beamState)
 	{
@@ -57,14 +57,14 @@ point getInitialState(direction beamState, SDL_Point spriteCenter)
 		break;
 	}
 	printf("cent .x %d   cent.y %d\n", spriteCenter.x, spriteCenter.y);
-	printf("inist x %f  inist y %f\n", intialState.x, intialState.y);
+	printf("inist x %d  inist y %d\n", intialState.x, intialState.y);
 	return (intialState);
 }
 
 
 
 
-pos getPositionForPoint(point endpoint)
+pos getPositionForPoint(SDL_Point endpoint)
 {
 	pos current = {0, 0};
 	current.x = floor(endpoint.x / CELL_SIZE);

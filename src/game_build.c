@@ -178,7 +178,7 @@ int drawMainSprite(double angle)
 }
 /*
 
-	SDL_Point arr[60];
+	SDL_Point  arr[60];
 	getRayCastingArr(arr, 60, angle);
 	SDL_SetRenderDrawColor(main_render, 200, 0, 0, 0);
 	drawLines(arr, 60);
@@ -200,7 +200,7 @@ void maze_close(void)
 	SDL_Quit();
 }
 
-void drawLines(SDL_Point arr[], int size)
+void drawLines(SDL_Point *arr, int size)
 {
 	SDL_Point spriteCenter = getSprCenter();
 	for (int i = 0; i < size; ++i)

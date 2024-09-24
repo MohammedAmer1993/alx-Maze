@@ -7,9 +7,9 @@
 #include "def.h"
 #include "positions.h"
 
-pos getPositionForPoint(point endpoint);
+pos getPositionForPoint(SDL_Point endpoint);
 collision calulateCollandTextureType(pos current);
-point getInitialState(direction beamState, SDL_Point spriteCenter);
+SDL_Point getInitialState(direction beamState, SDL_Point  spriteCenter);
 direction getBeamState(double angle);
 
 #endif /* RAYCASTING_UTIL_H_ */

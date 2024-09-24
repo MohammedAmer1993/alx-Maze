@@ -34,7 +34,7 @@ void move(double angle, int mov, char sign, double quarter)
 
 	xValue = sign * mov * cos((angle + quarter));
 	yValue = sign * mov * sin((angle + quarter));
-	correctionForXandY(&xValue, &yValue);
+	// correctionForXandY(&xValue, &yValue);
 	setAddedValueAfterColl(&xValue, &yValue, current);
 	sprite.x += xValue;
 	sprite.y += yValue;  /* int dosn't have dicimal BUG */

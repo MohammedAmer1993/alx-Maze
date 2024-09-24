@@ -38,16 +38,7 @@ typedef struct pos
 	int y;
 } pos;
 
-/**
- * struct point - a point on the plane in px
- * @x: the x coordinate
- * @y: the y coordinate
- */
-typedef struct point
-{
-	double x;
-	double y;
-} point;
+
 
 /**
  * enum collision - states of collision

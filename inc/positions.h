@@ -10,6 +10,6 @@ pos getCurrentPos(void);
 collision calculateXCollison(pos current, double xVal);
 collision calculateYCollison(pos current, double yVal);
 void setAddedValueAfterColl(double *xValue, double *yValue, pos current);
-SDL_Point getSprCenter();
-void getCollDetectionPoints(SDL_Point *points);
+SDL_Point  getSprCenter();
+void getCollDetectionPoints(SDL_Point  *points);
 #endif /* POSITIONS_H_ */

@@ -12,6 +12,6 @@ int maze_load(void);
 void maze_close(void);
 int create2Dmap(void);
 int drawMainSprite(double angle);
-void drawLines(SDL_Point arr[], int size);
+void drawLines(SDL_Point  *arr, int size);
 
 #endif /* GAME_BUILD_H_ */

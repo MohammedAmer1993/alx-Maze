@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 	int quit = 1;
 	double angle = 0;
 	double degree_angle = 0;
-	SDL_Point spriteCenter;
+	SDL_Point  spriteCenter;
 	double distance = 0;
 
 	(void) argc;
@@ -88,12 +88,12 @@ int main(int argc, char *argv[])
 							sprite.y += 1;
 							break;
 						case SDLK_LEFT:
-							angle -= 0.1;
+							angle -= PI / 4;
 							angle = angleIn360Range(angle);
 							printf("distance %f\n", calculateDistance(angle));
 							break;
 						case SDLK_RIGHT:
-							angle += 0.1;
+							angle += PI / 4;
 							angle = angleIn360Range(angle);
 							printf("distance %f\n", calculateDistance(angle));
 							break;

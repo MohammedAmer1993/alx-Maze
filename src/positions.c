@@ -92,7 +92,7 @@ SDL_Point getSprCenter()
 	return (center);
 }
 
-void getCollDetectionPoints(SDL_Point *points)
+void getCollDetectionPoints(SDL_Point  *points)
 {
 	int x = 0;
 	int y = 0;
