@@ -1,18 +1,45 @@
 #include "raycasting.h"
 
 
+void getRayCastingArr(SDL_Point *arr, int size, double angle)
+{
+	SDL_Point spriteCenter = getSprCenter();
+	int j = 0;
+	double len = 0;
+	for (int i = (size / 2) - 1; i >= 0 ; --i)
+	{
+		
+		len = calculateDistance(angle + (i * -0.05));
+		arr[j].x = spriteCenter.x + len * cos(angle + (i * -0.05));
+		arr[j].y = spriteCenter.y + len * sin(angle + (i * -0.05));
+		++j;
+		// printf("***********\n");
+		// printf ("%f\n", len);
+		// printf("*************\n");
+	}
+	for (int i = 1; i <= size / 2; ++i)
+	{
+		len = calculateDistance(angle + (i * 0.05));
+		arr[j].x = spriteCenter.x + len * cos(angle + (i * 0.5));
+		arr[j].y = spriteCenter.y + len * sin(angle + (i * 0.5));
+		++j;
+		// printf("***********\n");
+		// printf ("%f\n", len);
+		// printf("*************\n");
+	}
+}
+
 double calculateDistance(double angle)
 {
-	SDL_Point spriteCenter = getSprCenter(angle);
-	point initialStatePoint = getInitialState(angle, spriteCenter);
+	SDL_Point spriteCenter = getSprCenter();
+	direction beamDir = getBeamState(angle);
+	printf("%d beamstate\n", beamDir);
+	point initialStatePoint = getInitialState(beamDir, spriteCenter);
 	double distanceForOneInXDir = 0;
 	double distanceForOneInYDir = 0;
 	double lengthForVerCollLine = 0;
 	double lengthForHorCollLine = 0;
-	double addWhenMovX = 0;
-	double addWhenMovY = 0;
 	double lenOfRay = -1;
-	direction beamDir = getBeamState(angle);
 	collision collFlag = COLLISION_NONE;
 
 	switch (beamDir)
@@ -36,11 +63,9 @@ double calculateDistance(double angle)
 		lengthForHorCollLine = fabs(initialStatePoint.y / sin(angle));
 		while (lenOfRay == -1)
 		{
-			lengthForVerCollLine += addWhenMovX;
-			lengthForHorCollLine += addWhenMovY;
 			lenOfRay = calculateRayLen(lengthForVerCollLine, lengthForHorCollLine, angle, spriteCenter);
-			addWhenMovX += distanceForOneInXDir;
-			addWhenMovY += distanceForOneInYDir;
+			lengthForVerCollLine += distanceForOneInXDir;
+			lengthForHorCollLine += distanceForOneInYDir;
 		}
 		break;
 	}
@@ -50,11 +75,11 @@ double calculateDistance(double angle)
 
 double calculateRayLen(double lengthForVerCollLine, double lengthForHorCollLine, double angle, SDL_Point spriteCenter)
 {
+
 	point pointCollVer = {spriteCenter.x + lengthForVerCollLine * cos(angle), spriteCenter.y + lengthForVerCollLine * sin(angle)};
 	point pointCollHor = {spriteCenter.x + lengthForHorCollLine * cos(angle), spriteCenter.y + lengthForHorCollLine * sin(angle)};
 	point tmpVerPoint = {pointCollVer.x + cos(angle), pointCollVer.y + sin(angle)};
 	point tmpHorPoint = {pointCollHor.x + cos(angle), pointCollHor.y + sin(angle)};
-	
 	pos pointPosIn2dArrForVerColl = {0, 0};
 	pos pointPosIn2dArrForHorColl = {0, 0};
 

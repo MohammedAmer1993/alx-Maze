@@ -14,4 +14,5 @@ double calculateRayLenForward(SDL_Point, collision *collFlag);
 double calculateRayLenBackward(SDL_Point, collision *collFlag);
 double calculateRayLenDown(SDL_Point, collision *collFlag);
 double calculateRayLenUp(SDL_Point, collision *collFlag);
+void getRayCastingArr(SDL_Point *arr, int size, double angle);
 #endif /* RAYCASTING_H_ */

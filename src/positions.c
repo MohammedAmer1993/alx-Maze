@@ -87,8 +87,8 @@ SDL_Point getSprCenter()
 {
 	SDL_Point center = {0, 0};
 	double diognalLen = sprite.w * sqrt(2);
-	center.x = sprite.x + (diognalLen * cos(ANGLE_OF_DETECTOR)) / 2;
-	center.y = sprite.y + (diognalLen * sin(ANGLE_OF_DETECTOR)) / 2;
+	center.x = sprite.x + (diognalLen * cos(CENTER_ANGLE)) / 2;
+	center.y = sprite.y + (diognalLen * sin(CENTER_ANGLE)) / 2;
 	return (center);
 }
 

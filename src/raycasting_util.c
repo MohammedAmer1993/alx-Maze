@@ -1,78 +1,67 @@
 #include "raycasting_util.h"
 
-pos directionVector(double angle)
-{
-	pos vector = {0, 0};
-	if (angle >= 0 && angle < PI / 2)
-	{
-		vector.x = 1;
-		vector.y = 1;
-	}	
-	else if (angle >= PI / 2 && angle < PI)
-	{
-		vector.x = -1;
-		vector.y = 1;
-	}
-	else if (angle >= PI && angle < (3 * PI) / 2)
-	{
-		vector.x = -1;
-		vector.y = -1;
-	}
-	else if (angle >= (3 * PI) / 2 && angle < 2 * PI)
-	{
-		vector.x = 1;
-		vector.y = -1;
-	}
-	return (vector);
-}
-
-
-point getInitialState(double angle, SDL_Point spriteCenter)
-{
-	pos current = getCurrentPos();
-	point intialState = {0, 0};
-
-	if (angle > (3 * PI) / 2 && angle < (PI / 2) )
-	{
-		intialState.x = ((current.x + 1) * CELL_SIZE) - spriteCenter.x;
-	}
-	else
-	{
-		intialState.x = spriteCenter.x - (current.x * CELL_SIZE);
-	}
-	if (angle > 0 && angle < PI)
-	{
-		intialState.y = ((current.y + 1) * CELL_SIZE) - spriteCenter.y;
-	}
-	else
-	{
-		intialState.y = spriteCenter.y - (current.y * CELL_SIZE);
-	}
-	return (intialState);
-}
-
-
 direction getBeamState(double angle)
 {
-	if (angle < 0.0001 && angle > -0.0001)
+	if ((angle >= ((2 * PI) - 0.000881) && angle <= 2 * PI ) || (angle >= 0 && angle <= 0.000881))
 		return (BEAM_FORWARD);
-	if (angle > 0.0 && angle < (PI / 2))
+	if (angle > 0.000881 && angle < (PI / 2) - 0.00173)
 		return (BEAM_FORWARD_DOWN);
-	if (angle < ((PI / 2) + 0.0001) && angle > ((PI / 2) - 0.0001))
+	if (angle >= (PI / 2) - 0.00173 && angle <= (PI / 2) + 0.00173)
 		return (BEAM_DOWN);
-	if (angle > (PI / 2) && angle < PI )
+	if (angle > (PI / 2) + 0.00173 && angle < PI - 0.000881 )
 		return (BEAM_BACKWARD_DOWN);
-	if (angle < PI + 0.0001 && angle > PI - 0.0001)
+	if (angle >= PI - 0.000881 && angle <= PI + 0.000881)
 		return (BEAM_BACKWARD);
-	if (angle > PI && angle < ((3 * PI) / 2))
+	if (angle > PI + 0.000881 && angle < ((3 * PI) / 2) - 0.0173)
 		return (BEAM_BACKWARD_UP);
-	if (angle < (((3 * PI) / 2) + 0.0001) && angle > (((3 * PI) / 2) - 0.0001))
+	if (angle >= ((3 * PI) / 2) - 0.0173 && angle <= ((3 * PI) / 2) + 0.0173)
 		return (BEAM_UP);
-	if (angle > ((3 * PI) / 2) && angle < (2 * PI))
+	if (angle > ((3 * PI) / 2) + 0.0173 && angle < ((2 * PI) + 0.000881))
 		return (BEAM_FORWARD_UP);
 	else
 		return (BEAM_ERR);
 }
+
+
+
+point getInitialState(direction beamState, SDL_Point spriteCenter)
+{
+
+
+	pos current = getCurrentPos();
+	point intialState = {0, 0};
+
+	switch (beamState)
+	{
+	case BEAM_FORWARD_DOWN:
+		intialState.x = (current.x + 1) * CELL_SIZE - spriteCenter.x;
+		intialState.y = (current.y + 1) * CELL_SIZE - spriteCenter.y;
+		break;
+	
+	case BEAM_BACKWARD_DOWN:
+		intialState.x = spriteCenter.x - (current.x * CELL_SIZE);
+		intialState.y = (current.y + 1) * CELL_SIZE - spriteCenter.y;
+		break;
+	
+	case BEAM_BACKWARD_UP:
+		intialState.x = spriteCenter.x - (current.x * CELL_SIZE);
+		intialState.y = spriteCenter.y - current.y * CELL_SIZE;
+		break;
+
+	case BEAM_FORWARD_UP:
+		intialState.x = (current.x + 1 ) * CELL_SIZE - spriteCenter.x;
+		intialState.y = spriteCenter.y - (current.y * CELL_SIZE);;
+		break;
+	
+	default:
+		break;
+	}
+	printf("cent .x %d   cent.y %d\n", spriteCenter.x, spriteCenter.y);
+	printf("inist x %f  inist y %f\n", intialState.x, intialState.y);
+	return (intialState);
+}
+
+
 
 
 pos getPositionForPoint(point endpoint)
@@ -105,4 +94,31 @@ collision calulateCollandTextureType(pos current)
 		break;
 	}
 	return collisionState;
+}
+
+
+pos directionVector(double angle)
+{
+	pos vector = {0, 0};
+	if (angle >= 0 && angle < PI / 2)
+	{
+		vector.x = 1;
+		vector.y = 1;
+	}	
+	else if (angle >= PI / 2 && angle < PI)
+	{
+		vector.x = -1;
+		vector.y = 1;
+	}
+	else if (angle >= PI && angle < (3 * PI) / 2)
+	{
+		vector.x = -1;
+		vector.y = -1;
+	}
+	else if (angle >= (3 * PI) / 2 && angle < 2 * PI)
+	{
+		vector.x = 1;
+		vector.y = -1;
+	}
+	return (vector);
 }

@@ -6,7 +6,7 @@ SDL_Window *main_window = NULL;
 SDL_Renderer *main_render = NULL;
 SDL_Texture *wall = NULL;
 SDL_Texture *spr = NULL;
-SDL_Rect sprite = {80, 80, 5, 5};
+SDL_Rect sprite = {80, 80, 0, 0};
 
 
 int mapArr[MAP_HEIGHT][MAP_WIDTH] = {
@@ -40,6 +40,8 @@ int main(int argc, char *argv[])
 	int quit = 1;
 	double angle = 0;
 	double degree_angle = 0;
+	SDL_Point spriteCenter;
+	double distance = 0;
 
 	(void) argc;
 	(void) argv;
@@ -88,10 +90,12 @@ int main(int argc, char *argv[])
 						case SDLK_LEFT:
 							angle -= 0.1;
 							angle = angleIn360Range(angle);
+							printf("distance %f\n", calculateDistance(angle));
 							break;
 						case SDLK_RIGHT:
 							angle += 0.1;
 							angle = angleIn360Range(angle);
+							printf("distance %f\n", calculateDistance(angle));
 							break;
 						case SDLK_w:
 							move(angle, MOV_STEPS, FORWARD_SIGN, MOV_FORWARD);
@@ -99,16 +103,20 @@ int main(int argc, char *argv[])
 							break;
 						case SDLK_s:
 							move(angle, MOV_STEPS, BACKWARD_SIGN, MOV_BACKWARD);
+							printf("distance %f\n", calculateDistance(angle));
 							break;
 						case SDLK_a:
 							move(angle, MOV_STEPS, LEFT_SIGN, MOV_LEFT);
+							printf("distance %f\n", calculateDistance(angle));
 							break;
 						case SDLK_d:
 							move(angle, MOV_STEPS, RIGHT_SIGN, MOV_RIGHT);
+							printf("distance %f\n", calculateDistance(angle));
 							break;
 						default:
 							break;
 						}
+						distance = calculateDistance(angle);
 						SDL_RenderCopyEx(main_render, wall, NULL, NULL, 0, NULL, SDL_FLIP_NONE);
 						degree_angle = (180 / PI) * angle;
 						status = drawMainSprite(degree_angle);
@@ -117,6 +125,9 @@ int main(int argc, char *argv[])
 							printf("couldn't pring sprint");
 							return (status);
 						}
+						spriteCenter = getSprCenter();
+						SDL_SetRenderDrawColor(main_render, 255, 0, 0, 0);
+						SDL_RenderDrawLine(main_render, spriteCenter.x, spriteCenter.y, spriteCenter.x + distance * cos(angle), spriteCenter.y + distance * sin(angle));
 						SDL_RenderPresent(main_render);
 					}
 				}

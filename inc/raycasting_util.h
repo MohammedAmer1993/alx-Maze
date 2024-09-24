@@ -9,7 +9,7 @@
 
 pos getPositionForPoint(point endpoint);
 collision calulateCollandTextureType(pos current);
-point getInitialState(double angle, SDL_Point);
+point getInitialState(direction beamState, SDL_Point spriteCenter);
 direction getBeamState(double angle);
 
 #endif /* RAYCASTING_UTIL_H_ */

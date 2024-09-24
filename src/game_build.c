@@ -165,7 +165,6 @@ int drawMainSprite(double angle)
 	int w = 0;
 	int h = 0;
 	int status = 0;
-
 	SDL_QueryTexture(spr, NULL, NULL, &w, &h);
 	sprite.w = w;
 	sprite.h = h;
@@ -177,7 +176,13 @@ int drawMainSprite(double angle)
 	}
 	return (status);
 }
+/*
 
+	SDL_Point arr[60];
+	getRayCastingArr(arr, 60, angle);
+	SDL_SetRenderDrawColor(main_render, 200, 0, 0, 0);
+	drawLines(arr, 60);
+*/
 /**
  * maze_close - releases all memory
  * Return: Nothing (void function)
@@ -195,3 +200,11 @@ void maze_close(void)
 	SDL_Quit();
 }
 
+void drawLines(SDL_Point arr[], int size)
+{
+	SDL_Point spriteCenter = getSprCenter();
+	for (int i = 0; i < size; ++i)
+	{
+		SDL_RenderDrawLine(main_render, spriteCenter.x, spriteCenter.y, arr[i].x, arr[i].y);
+	}
+}

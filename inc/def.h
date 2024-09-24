@@ -23,7 +23,7 @@
 #define  RIGHT_SIGN               1
 
 /* these are some angles used in analisis */
-#define  ANGLE_OF_DETECTOR        (PI / 4)       /* angle for center point of the sprite */
+#define  CENTER_ANGLE        (PI / 4)       /* angle for center point of the sprite */
 #define  FRONT_POINT_ANGLE        0.463647609    /* angle for front and in the middle of line of the sprite */
 #define  BOTTOM_POINT_ANGLE       (PI / 2)	 /* angle for the bottom point of sprite */
 
@@ -89,7 +89,7 @@ typedef enum collision
 typedef enum direction
 {
 	BEAM_ERR,
-	BEAM_FORWARD,
+	BEAM_FORWARD = 1,
 	BEAM_FORWARD_DOWN,
 	BEAM_DOWN,
 	BEAM_BACKWARD_DOWN,
