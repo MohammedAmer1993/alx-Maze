@@ -38,7 +38,10 @@ typedef struct pos
 	int y;
 } pos;
 
-
+typedef enum collisionType {
+	VERTICAL_COLLISION,
+	HORIZONTAL_COLLISION,
+} collisionType;
 
 /**
  * enum collision - states of collision

@@ -41,7 +41,6 @@ double calculateDistance(double angle)
 	double lengthForHorCollLine = 0;
 	double lenOfRay = -1;
 	collision collFlag = COLLISION_NONE;
-
 	switch (beamDir)
 	{
 	case BEAM_FORWARD:
@@ -57,65 +56,52 @@ double calculateDistance(double angle)
 		lenOfRay = calculateRayLenUp(spriteCenter, &collFlag);
 		break;
 	default:
-		distanceForOneInXDir = sqrt(1 + tan(angle) * tan(angle));
-		distanceForOneInYDir = sqrt(1 + (1 / tan(angle)) * (1 / tan(angle)));
+		distanceForOneInXDir = CELL_SIZE * sqrt(1 + tan(angle) * tan(angle));
+		distanceForOneInYDir = CELL_SIZE * sqrt(1 + (1 / tan(angle)) * (1 / tan(angle)));
 		lengthForVerCollLine = fabs(initialStatePoint.x / cos(angle));
 		lengthForHorCollLine = fabs(initialStatePoint.y / sin(angle));
-		while (lenOfRay == -1)
-		{
-			lenOfRay = calculateRayLen(lengthForVerCollLine, lengthForHorCollLine, angle, spriteCenter);
-			lengthForVerCollLine += distanceForOneInXDir;
-			lengthForHorCollLine += distanceForOneInYDir;
-		}
+		lenOfRay = calculateRayLen(lengthForVerCollLine, lengthForHorCollLine, distanceForOneInXDir, distanceForOneInYDir, angle, spriteCenter);
 		break;
 	}
 	return (lenOfRay);
 }
 
 
-double calculateRayLen(double lengthForVerCollLine, double lengthForHorCollLine, double angle, SDL_Point spriteCenter)
+double calculateRayLen(double lengthForVerCollLine, double lengthForHorCollLine, double movVerUnit, double movHorUnit, double angle, SDL_Point spriteCenter)
 {
-
 	SDL_Point pointCollVer = {spriteCenter.x + lengthForVerCollLine * cos(angle), spriteCenter.y + lengthForVerCollLine * sin(angle)};
 	SDL_Point pointCollHor = {spriteCenter.x + lengthForHorCollLine * cos(angle), spriteCenter.y + lengthForHorCollLine * sin(angle)};
-	SDL_Point tmpVerPoint = {pointCollVer.x + cos(angle), pointCollVer.y + sin(angle)};
-	SDL_Point tmpHorPoint = {pointCollHor.x + cos(angle), pointCollHor.y + sin(angle)};
-	pos pointPosIn2dArrForVerColl = {0, 0};
-	pos pointPosIn2dArrForHorColl = {0, 0};
+	double rayLen = -1;
 
-	if (lengthForVerCollLine <= lengthForHorCollLine)
+	while (rayLen == -1)
 	{
-		pointPosIn2dArrForVerColl = getPositionForPoint(tmpVerPoint);
-		if (calulateCollandTextureType(pointPosIn2dArrForVerColl) != COLLISION_NONE)
+		if (lengthForVerCollLine >= lengthForHorCollLine)
 		{
-			return (lengthForVerCollLine);
-		}
-		else if (calulateCollandTextureType(pointPosIn2dArrForHorColl) != COLLISION_NONE)
-		{
-			return (lengthForHorCollLine);
+			if(calulateCollandTextureType(pointCollVer, VERTICAL_COLLISION) != COLLISION_NONE)
+			{
+				rayLen = lengthForVerCollLine;
+			}
+			else
+			{
+				lengthForVerCollLine += movHorUnit;
+			}
 		}
 		else
 		{
-			return (-1);
+			if(calulateCollandTextureType(pointCollHor, HORIZONTAL_COLLISION) != COLLISION_NONE)
+			{
+				rayLen = lengthForHorCollLine;
+			}
+			else
+			{
+				lengthForHorCollLine += movVerUnit;
+			}
+
 		}
 	}
-	else
-	{
-		pointPosIn2dArrForHorColl = getPositionForPoint(tmpHorPoint);
-		if (calulateCollandTextureType(pointPosIn2dArrForHorColl) != COLLISION_NONE)
-		{
-			return (lengthForHorCollLine);
-		}
-		else if (calulateCollandTextureType(pointPosIn2dArrForVerColl) != COLLISION_NONE)
-		{
-			return (lengthForVerCollLine);
-		}
-		else
-		{
-			return (-1);
-		}
-	}
+	return (rayLen);
 }
+
 
 double calculateRayLenForward(SDL_Point spriteCenter, collision *collFlag)
 {

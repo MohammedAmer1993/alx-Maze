@@ -88,30 +88,24 @@ int main(int argc, char *argv[])
 							sprite.y += 1;
 							break;
 						case SDLK_LEFT:
-							angle -= PI / 4;
+							angle -= 0.1;
 							angle = angleIn360Range(angle);
-							printf("distance %f\n", calculateDistance(angle));
 							break;
 						case SDLK_RIGHT:
-							angle += PI / 4;
+							angle += 0.1;
 							angle = angleIn360Range(angle);
-							printf("distance %f\n", calculateDistance(angle));
 							break;
 						case SDLK_w:
 							move(angle, MOV_STEPS, FORWARD_SIGN, MOV_FORWARD);
-							printf("distance %f\n", calculateDistance(angle));
 							break;
 						case SDLK_s:
 							move(angle, MOV_STEPS, BACKWARD_SIGN, MOV_BACKWARD);
-							printf("distance %f\n", calculateDistance(angle));
 							break;
 						case SDLK_a:
 							move(angle, MOV_STEPS, LEFT_SIGN, MOV_LEFT);
-							printf("distance %f\n", calculateDistance(angle));
 							break;
 						case SDLK_d:
 							move(angle, MOV_STEPS, RIGHT_SIGN, MOV_RIGHT);
-							printf("distance %f\n", calculateDistance(angle));
 							break;
 						default:
 							break;

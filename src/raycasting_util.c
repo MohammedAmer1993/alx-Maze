@@ -56,8 +56,6 @@ SDL_Point getInitialState(direction beamState, SDL_Point spriteCenter)
 	default:
 		break;
 	}
-	printf("cent .x %d   cent.y %d\n", spriteCenter.x, spriteCenter.y);
-	printf("inist x %d  inist y %d\n", intialState.x, intialState.y);
 	return (intialState);
 }
 
@@ -72,9 +70,10 @@ pos getPositionForPoint(SDL_Point endpoint)
 	return (current);
 }
 
-collision calulateCollandTextureType(pos current)
+collision calulateCollandTextureType(SDL_Point current, collisionType type)
 {
 	collision collisionState;
+
 	switch (mapArr[current.y][current.x])
 	{
 	case 1:
@@ -96,6 +95,19 @@ collision calulateCollandTextureType(pos current)
 	return collisionState;
 }
 
+pos adjustValForPos (collisionType type)
+{
+	pos position = {0, 0};
+	if (type == VERTICAL_COLLISION)
+	{
+		position.x = 1;
+	}
+	else
+	{
+		position.y = 1;
+	}
+	return position;
+}
 
 pos directionVector(double angle)
 {
@@ -121,4 +133,13 @@ pos directionVector(double angle)
 		vector.y = -1;
 	}
 	return (vector);
+}
+
+
+pos calculateAddedPos(double angle, collisionType type)
+{
+	pos adjustedAddedPos = adjustValForPos(type);
+	pos vectorForDirection = directionVector(angle);
+	pos correctionPos = {adjustedAddedPos.x * vectorForDirection.x, adjustedAddedPos.y * vectorForDirection.y};
+	return (correctionPos);
 }

@@ -8,7 +8,7 @@
 #include "positions.h"
 
 pos getPositionForPoint(SDL_Point endpoint);
-collision calulateCollandTextureType(pos current);
+collision calulateCollandTextureType(SDL_Point current, collisionType type);
 SDL_Point getInitialState(direction beamState, SDL_Point  spriteCenter);
 direction getBeamState(double angle);
 
